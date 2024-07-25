@@ -275,7 +275,11 @@ class Superfish:
                 )
         else:
             # Windows needs this
-            P = subprocess.run(cmds.split(), cwd=self.path, **kwargs)
+            SW_HIDE = 0
+            info = subprocess.STARTUPINFO()
+            info.dwFlags = subprocess.STARTF_USESHOWWINDOW
+            info.wShowWindow = SW_HIDE
+            P = subprocess.run(cmds.split(), cwd=self.path, startupinfo=info, **kwargs)
             
         return P
     
